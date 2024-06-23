@@ -10,5 +10,6 @@ public class Application {
 
         MemberController memberController = context.getBean(MemberController.class);
         System.out.println(memberController.selectMember());
+
     }
 }
