@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="available">
+        <li class="drink coffee">커피</li>
+        <li class="drink coke">콜라</li>
+        <li class="drink milk">우유</li>
+    </ul>
+    <ul id="unavailable">
+        <li class="drink soju">소주</li>
+        <li class="drink beer">맥주</li>
+    </ul>
+
+    <script>
+
+        const $drink = document.getElementsByClassName('drink');
+
+        console.log($drink);
+
+        [...$drink].forEach(drink => drink.style.color = 'red');
+
+        const $coffee = document.getElementsByClassName('drink coffee');
+        console.log($coffee);
+
+        const $available = document.getElementById('available');
+        const $availableDrinks = $available.getElementsByClassName('drink');
+
+        [...$availableDrinks].forEach(drink => drink.style.color = 'blue');
+
+    </script>
+</body>
+
+</html>
