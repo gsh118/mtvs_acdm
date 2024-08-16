@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- saved from url=(0332)https://file.notion.so/f/f/2e42b292-3597-492a-9d2f-caaf0ff36a48/ef875902-d7d7-4c1b-baf3-08762bfb747e/04_example2.html?table=block&id=2c9880f4-42aa-4793-acb3-af201a65b420&spaceId=2e42b292-3597-492a-9d2f-caaf0ff36a48&expirationTimestamp=1723939200000&signature=1Tfw0PiDngRk0qhiA7zmfkstzLHZJ08xEakcr55fics&downloadName=04_example2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포켓몬 목록 검색</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .item {
+            background: gainsboro;
+            border: 1px dotted black;
+            width: 330px;
+            display: flex;
+            margin: 10px;
+            min-height: 150px;
+        }
+
+        h5 {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const { useEffect, useState } = React;
+
+        function Title() {
+            return <h1>포켓몬 목록</h1>;
+        }
+
+        function ItemList({ startIndex, endIndex }) {
+
+            const [pokemons, setPokemons] = useState([]);
+
+            async function getPokemonList(startIndex, endIndex) {
+                for (let i = startIndex; i <= endIndex; i++) {
+                    try {
+
+                        const pokemonForm = await fetch(`https://pokeapi.co/api/v2/pokemon-form/${i}`).then(response => response.json());
+                        const pokemonSpecies = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}`).then(response => response.json());
+                        const korName = pokemonSpecies.names.filter(nameInfo => nameInfo.language.name === 'ko')[0].name;
+
+                        const pokemonInfo = {
+                            id: pokemonForm.id,
+                            imgUrl: pokemonForm.sprites.front_default,
+                            engName: pokemonForm.pokemon.name,
+                            korName,
+                            isLegendary: pokemonSpecies.is_legendary,
+                            isMythical: pokemonSpecies.is_mythical
+                        };
+
+                        setPokemons(prevPokemons => [...prevPokemons, pokemonInfo]);
+                    } catch (error) {
+                        console.log(`${i}번 포켓몬 검색중 에러 발생`, error);
+                    }
+                }
+            }
+
+            useEffect(() => {
+                setPokemons([]);
+                getPokemonList(startIndex, endIndex);
+            }, [startIndex, endIndex]);
+
+            return (
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                    {pokemons.map(pokemon => <Item key={pokemon.id} pokemon={pokemon} />)}
+                </div>
+            );
+        }
+
+        function Item({ pokemon }) {
+            return (
+                <div className="item">
+                    {pokemon.imgUrl && <img src={pokemon.imgUrl} alt={pokemon.engName} />}
+                    <div>
+                        <h3>No.{pokemon.id}</h3>
+                        <h5>영문이름 : {pokemon.engName}</h5>
+                        <h5>한국이름 : {pokemon.korName}</h5>
+                        {pokemon.isLegendary && <h5 style={{ color: "#e656e0" }}>전설의 포켓몬</h5>}
+                        {pokemon.isMythical && <h5 style={{ color: "#078985" }}>환상의 포켓몬</h5>}
+
+                    </div>
+                </div>
+            );
+        }
+
+        function PokemonListContent() {
+            const [pokemonCount, setPokemonCount] = useState(0);
+
+            useEffect(() => {
+                async function getPokemonCount() {
+                    try {
+                        const count = await fetch('https://pokeapi.co/api/v2/pokemon-species/').then(response => response.json()).then(info => info.count);
+                        setPokemonCount(Number(count));
+                    } catch {
+                        console.log("포켓몬 숫자 불러오기 중 오류 발생");
+                    }
+                }
+                getPokemonCount();
+            }, []);
+
+            const [startIndex, setStartIndex] = useState(1);
+            const [endIndex, setEndIndex] = useState(20);
+            const [inputStart, setInputStart] = useState(1);
+            const [inputEnd, setInputEnd] = useState(20);
+            const [error, setError] = useState();
+
+            const onClickHandler = () => {
+                setError();
+
+                if (!inputEnd || !inputStart) {
+                    setError("숫자를 입력하세요");
+                    return;
+                }
+
+                const startNum = Number(inputStart);
+                const endNum = Number(inputEnd);
+
+                if (startNum <= 0 || endNum <= 0 || (startNum > endNum || endNum > pokemonCount)) {
+                    setError("유효한 범위를 입력하세요");
+                    return;
+                }
+
+
+                setStartIndex(startNum);
+                setEndIndex(endNum);
+            };
+
+            const onStartInputChangeHandler = e => setInputStart(e.target.value);
+            const onEndInputChangeHandler = e => setInputEnd(e.target.value);
+
+            return (
+                <>
+                    <h3>현재 존재하는 포켓몬의 수: {pokemonCount}</h3>
+                    <div>
+                        <label>시작 번호 </label>
+                        <input type="number" min={1} onChange={onStartInputChangeHandler} />
+                        <label>끝 번호 </label>
+                        <input type="number" min={1} onChange={onEndInputChangeHandler} />
+                        <button type="button" onClick={onClickHandler}>검색</button>
+                    </div>
+                    {error && <p style={{ color: 'red' }}>오류 : {error}</p>}
+                    <ItemList startIndex={startIndex} endIndex={endIndex} />
+                </>
+            );
+        }
+
+
+        function App() {
+            return (
+                <>
+                    <Title />
+                    <PokemonListContent />
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+
+
+</body></html>
