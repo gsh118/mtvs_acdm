@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="area">태그 엘리먼트의 값을 읽거나, 변경할 때 <span>innerHTML</span>속성을 사용함</div>
+    <script>
+        const $area = document.getElementById('area');
+
+        console.log($area.innerHTML);
+
+        //태그로 인식이 됨, 그래서 취약점을 노리는 공격이 가능해서 가급적 사용을 자제
+
+        $area.innerHTML += '값 추가';
+
+        $area.innerHTML += '<h1>innerHTML</h1>속성으로 값 변경';
+
+        $area.innerHTML = '';
+
+        //$area.innerHTML = `<img src="x" onerror='alert("메롱메롱~")'>`;
+    </script>
+
+    <ul id="list">
+        <li class="coffee">커피</li>
+    </ul>
+    <script>
+        const $list = document.getElementById('list');
+
+        $list.innerHTML += '<li class="coke">콜라</li>';
+        // 커피와 콜라 사이, 커피 이전 같은 곳에 넣는 건 이걸로는 안됨
+
+    </script>
+
+</body>
+
+</html>

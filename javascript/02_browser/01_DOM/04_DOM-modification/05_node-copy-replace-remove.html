@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul class="copy">
+        ul영역
+        <li>li 영역</li>
+    </ul>
+    <script>
+        const $ul = document.querySelector(".copy");
+        const $li = $ul.firstElementChild;
+
+        const $shallowClone = $li.cloneNode(false);
+        const $deepClone = $ul.cloneNode(true);
+
+        //자손을 복사 안해서 텍스트노드도 없음
+        $ul.appendChild($shallowClone);
+        //ul의 자식 요소들을 다 복사
+        $ul.appendChild($deepClone);
+    </script>
+
+    <ul id="drink">
+        <li>커피</li>
+        <li>사이다</li>
+    </ul>
+
+    <script>
+        const $drink = document.getElementById('drink');
+        const $coffee = $drink.firstElementChild;
+
+        const $newChild = document.createElement('li');
+        $newChild.textContent = '콜라';
+
+        $drink.replaceChild($newChild, $coffee);
+    </script>
+
+    <ul id="food">
+        <li>파스타</li>
+        <li>피자</li>
+    </ul>
+    <script>
+        const $food = document.getElementById('food');
+
+        $food.removeChild($food.lastElementChild);
+    </script>
+
+</body>
+
+</html>

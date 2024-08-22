@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="area">노드 정보 취득</div>
+    <script>
+        console.log(document.nodeType === Node.DOCUMENT_NODE);
+
+        const $area = document.getElementById('area');
+        console.log($area.nodeType === Node.ELEMENT_NODE);
+
+        const $textNode = $area.firstChild;
+        console.log($textNode.nodeType === Node.TEXT_NODE);
+
+        console.log(document.nodeName);
+        console.log($area.nodeName);
+        console.log($textNode.nodeName);
+    </script>
+</body>
+
+</html>
