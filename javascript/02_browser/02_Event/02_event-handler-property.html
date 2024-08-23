@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">클릭해보세요</button>
+    <script>
+        const $button = docment.querySelector('#btn');
+
+        $button.onclick = function() {
+            alert('DOM 프로퍼티 방식으로 이벤트 핸들러 등록 완료!');
+        }
+
+        // 이전 핸들러는 무시됨, 즉 하나만 연결 가능
+        $button.onclick = () => alert('이벤트 덮어쓰기');
+    </script>
+</body>
+</html>

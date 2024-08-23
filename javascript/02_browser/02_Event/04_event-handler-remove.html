@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">클릭해보세요</button>
+    <script>
+        const $button = document.getElementById('btn');
+        const handleClick = () => alert('클릭했데요~');
+
+        $button.addEventListener('click', handleClick);
+
+        $button.removeEventListener('click', handleClick);
+
+        $button.addEventListener('mouseover', () => alert('마우스 올렸데요~'));
+    </script>
+
+    <button id="btn2">더블클릭해보세요</button>
+    <script>
+        const $button2 = document.getElementById('btn2');
+
+        const handleDbClick = () => alert('더블클릭했데요~');
+
+        $button2.ondblclick = handleDbClick;
+
+        //프로퍼티로 한 거라 지워지지 않음
+        $button2.removeEventListener('dblclick', handleClick);
+
+        $button2.ondblclick = null;
+    </script>
+</body>
+
+</html>
