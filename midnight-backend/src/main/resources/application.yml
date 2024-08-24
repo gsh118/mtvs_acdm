@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/midnight
+    username: midnighta2
+    password: midnighta2
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: false
+    generate-ddl: true
+  servlet:
+    multipart:
+      max-request-size: 50MB
+      max-file-size: 50MB
+
+server:
+  port: 7880
+  tomcat:
+    connection-timeout: -1
+  max-http-request-header-size: 512KB

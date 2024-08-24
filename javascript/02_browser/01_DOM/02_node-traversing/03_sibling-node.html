@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ol id="node">
+        <li>자식 노드 1</li>
+        <li>자식 노드 2</li>
+    </ol>
+
+    <script>
+        const $node = document.getElementById('node');
+
+        //공백이나 개행도 노드
+        // const $firstChild = $node.firstChild;
+        // console.log($firstChild);
+
+        //구조분해 할당으로 node의 fistChild속성을 변수로 가져옴
+
+        const {firstChild} = $node;
+        console.log(firstChild);
+
+        const {nextSibling} = firstChild;
+        console.log(nextSibling);
+
+        const {previousSibling} = nextSibling;
+        console.log(previousSibling);
+    </script>
+
+    <ol id="element">
+        <li>자식 요소 1</li>
+        <li>자식 요소 2</li>
+    </ol>
+
+    <script>
+        //텍스트 노드는 제외하고 요소노드만 반환
+        const $element = document.getElementById('element');
+
+        const {firstElementChild} = $element;
+        console.log(firstElementChild);
+
+        const {nextElementSibling} = firstElementChild;
+        console.log(nextElementSibling);
+        
+        const {previousElementSibling} = nextElementSibling;
+        console.log(previousElementSibling); 
+    
+    </script>
+</body>
+</html>

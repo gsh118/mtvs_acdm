@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.i5.springmybatiscrud.menu.model.dao.MenuMapper">
+    <resultMap id="MenuMap" type="com.i5.springmybatiscrud.menu.model.dto.MenuDTO">
+        <id property="code" column="MENU_CODE"/>
+        <result property="name" column="MENU_NAME"/>
+        <result property="price" column="MENU_PRICE"/>
+        <result property="categoryCode" column="CATEGORY_CODE"/>
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+    </resultMap>
+
+    <resultMap id="CategoryMap" type="com.i5.springmybatiscrud.menu.model.dto.CategoryDTO">
+        <id property="code" column="CATEGORY_CODE"/>
+        <result property="name" column="CATEGORY_NAME"/>
+        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
+    </resultMap>
+
+    <select id="findAllMenu" resultMap="MenuMap">
+        SELECT
+            MENU_CODE
+          , MENU_NAME
+          , MENU_PRICE
+          , CATEGORY_CODE
+          , ORDERABLE_STATUS
+        FROM
+            TBL_MENU
+    </select>
+
+    <select id="findAllCategory" resultMap="CategoryMap">
+        SELECT
+            CATEGORY_CODE
+          , CATEGORY_NAME
+          , REF_CATEGORY_CODE
+        FROM
+            TBL_CATEGORY
+    </select>
+
+    <insert id="registMenu" parameterType="com.i5.springmybatiscrud.menu.model.dto.MenuDTO"
+    useGeneratedKeys="true" keyProperty="code">
+        INSERT INTO
+            TBL_MENU
+        (MENU_NAME, MENU_PRICE, CATEGORY_CODE, ORDERABLE_STATUS)
+        VALUES
+            (#{name}, #{price}, #{categoryCode}, #{orderableStatus})
+    </insert>
+
+</mapper>

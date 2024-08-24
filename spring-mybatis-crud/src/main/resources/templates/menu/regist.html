@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>메뉴 추가</title>
+    <meta charset="UTF-8">
+<body>
+    <div th:include="/header.html"></div>
+    <form action="/menu/regist" method="post">
+        <label>메뉴 이름 : </label> <input type="text" name="name">
+        <label>메뉴 가격 : </label> <input type="number" name="price">
+        <label>카테고리 코드 : </label>
+        <select name="categoryCode">
+            <option value="">선택</option>
+            <option th:each="category:${categoryList}"
+                    th:text="${category.name}" th:value="${category.code}"></option>
+        </select>
+        <br>
+        <label>판매 여부 : </label>
+        <select name="orderableStatus">
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+        </select>
+        <br>
+        <button type="submit">등록</button>
+    </form>
+</body>
+</head>
+</html>

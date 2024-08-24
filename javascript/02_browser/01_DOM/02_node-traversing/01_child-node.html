@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ol id="node">
+        <li>자식 노드 1</li>
+        <li>자식 노드 2</li>
+        <li>자식 노드 3</li>
+    </ol>
+    <script>
+        const $node = document.getElementById('node');
+
+        console.log($node);
+
+        console.log($node.childNodes);
+
+        console.log($node.firstChild);
+
+        console.log($node.lastChild);
+    </script>
+
+    <ol id="element">
+        <li>자식 노드 1</li>
+        <li>자식 노드 2</li>
+        <li>자식 노드 3</li>
+    </ol>
+    <script>
+        const $element = document.getElementById('element');
+
+        console.log($element.children);
+        console.log($element.firstElementChild);
+        console.log($element.lastElementChild);
+    </script>
+
+    <ol id="empty">
+    
+    </ol>
+    <script>
+        const $empty = document.getElementById('empty');
+
+        console.log($node.hasChildNodes());
+
+        console.log($empty.children.length);
+        console.log(!!$empty.childElementCount);
+    </script>
+
+</body>
+</html>

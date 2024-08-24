@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>부모 노드 탐색</h1>
+    <script>
+        console.log(document.documentElement);
+        console.log(document.head);
+        console.log(document.body);
+        
+        //html 자체가 부모노드
+        console.log(document.head.parentNode);
+        console.log(document.body.parentNode);
+
+    </script>
+
+    <ul id="lists">
+        <li class="coffee">커피</li>
+        <li class="coke">콜라</li>
+        <li class="milk">우유</li>
+    </ul>
+
+    <script>
+        const $coke = document.querySelector('.coke');
+
+        console.log($coke);
+
+        console.log($code.parentNode);
+    </script>
+
+</body>
+</html>

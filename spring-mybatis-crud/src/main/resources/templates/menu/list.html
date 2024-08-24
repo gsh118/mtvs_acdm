@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>메뉴 추가</title>
+    <meta charset="UTF-8">
+
+<body>
+<script>
+    const successMessage = `[[${successMessage}]]`;
+    if (successMessage) alert(successMessage);
+</script>
+<div th:include="/header.html"></div>
+
+<table>
+    <tr>
+        <th>메뉴 번호</th>
+        <th>메뉴 이름</th>
+        <th>메뉴 가격</th>
+        <th>카테고리 코드</th>
+        <th>판매 여부</th>
+    </tr>
+    <tr th:each="menu: ${menuList}">
+        <td th:text="${menu.code}"></td>
+        <td th:text="${menu.name}"></td>
+        <td th:text="${menu.price}"></td>
+        <td th:text="${menu.categoryCode}"></td>
+        <td th:text="${menu.orderableStatus}"></td>
+    </tr>
+</table>
+</body>
+</head>
+</html>
