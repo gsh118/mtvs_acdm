@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function sleep(func, delay) {
+            const delayUntil = Date.now() + delay;
+
+            while (Date.now() < delayUntil);
+
+            func();
+        }
+
+        function delay() {
+            console.log('실행 시간을 늦추고 싶어요');
+        }
+
+        function start() {
+            console.log('바로 실행 하고 싶어요!');
+        }
+
+        //sleep은 동기방식, 이게 끝나야 start가 실행
+        // sleep(delay, 3000);
+        // start();
+    </script>
+
+    <script>
+        setTimeout(delay, 3000);
+        start();
+    </script>
+</body>
+
+</html>

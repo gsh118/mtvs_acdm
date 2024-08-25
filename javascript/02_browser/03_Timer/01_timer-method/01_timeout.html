@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        setTimeout(() => console.log('1초 지났지롱~'), 1000);
+        setTimeout((msg) => console.log(`1..2..3..${msg}`), 3000, '기다렸어?');
+
+        const timerId = setTimeout(() => console.log('나는 곧 취소될거야'), 2000);
+        console.log(timerId);
+        clearTimeout(timerId);
+    </script>
+</body>
+
+</html>
