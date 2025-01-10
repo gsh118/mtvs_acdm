@@ -1,0 +1,11 @@
+// function hello(name) {
+//     return `${name}님 안녕하세요!`;
+// }
+
+// console.log(hello('홍길동'));
+
+var hello2 = function hello(name) { // 함수를 표현식 형태로 정의할 때 함수의 이름은 무시됨
+    return `${name}님 안녕하세요!`;
+}
+
+console.log(hello('홍길동')); //error
