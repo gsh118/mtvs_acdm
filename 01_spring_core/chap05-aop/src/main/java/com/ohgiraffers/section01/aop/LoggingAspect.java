@@ -1,6 +1,7 @@
 package com.ohgiraffers.section01.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
@@ -56,4 +57,33 @@ public class LoggingAspect {
             ((Map<Long, MemberDTO>)result).put(100L, new MemberDTO(100L, "반환값 가공"));
         }
     }
+
+    // returing과 비슷하게 두번째 예외를 나타내는 인자의 이름이 어노테이션 throwing 속성과 같아야함
+    // 오류가 나는 경우 적용되고, after returning보다 자주 사용됨
+    // 에러가 날 때 어느 상황에서 났는지 exception log를 수집해서 모니터링 용도로 사용
+    @AfterThrowing(pointcut = "logPointCut()", throwing = "exception")
+    public void logAfterThrowing(JoinPoint joinPoint, Exception exception){
+        System.out.println("AfterThrowing exception : " + exception);
+    }
+
+    @Around("logPointCut()")
+    //반환형이 Object, JoinPoint를 상속받아 확장한 ProceedingJoinPoint를 사용
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable{
+
+        // 사전
+
+        // 타겟 메소드의 이름
+        System.out.println("Around Before : " + joinPoint.getSignature().getName());
+
+        // 원본 조인 포인트를 실행한다.
+        Object result = joinPoint.proceed();
+        
+        // 사후
+
+        System.out.println("Around After : " + joinPoint.getSignature().getName());
+
+        return result;
+    }
+
+    //9:50
 }
